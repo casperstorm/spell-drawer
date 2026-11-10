@@ -52,6 +52,7 @@ local function widget(kind, name)
     elseif k == "LockHighlight" then f = function(s) s._locked = true end
     elseif k == "UnlockHighlight" then f = function(s) s._locked = false end
     elseif k == "EnableMouse" then f = function(s, v) s._mouse = v end
+    elseif k == "WrapScript" then f = function(s, target, script, pre, post) target._wraps = target._wraps or {}; target._wraps[script] = { pre = pre, post = post } end
     elseif k == "CreateMaskTexture" then f = function() return widget("Mask") end
     elseif k == "AddMaskTexture" then f = function(s, m) s._mask = m end
     elseif k:match("^Set(%a+)Atlas$") then local st = k:match("^Set(%a+)Atlas$"); f = function(s, a) STYLE_CALLS = STYLE_CALLS + 1; s["_st" .. st] = s["_st" .. st] or widget("Texture"); s["_st" .. st]._atlas = a end
@@ -253,6 +254,28 @@ assert(#body <= 255 and h1.sequence == 3 and body:sub(-#long[3].name) == long[3]
 D1.entries = { { kind = "item", id = 22 }, { kind = "macro", name = "Mount" } }; NS.SetMode(1, "close"); NS.SetMode(1, "cycle")
 assert(macros["Drawer 1"].body == "/click SpellDrawerMacro1" and macros["Drawer 1"].icon == 2022 and h1.sequence == 0)
 D1.entries = keep; NS.SetMode(1, "cycle"); assert(macros["Drawer 1"].body == seq)
+
+-- ===== the secure snippets: compiled and run against stand-ins, as the game would =====
+do
+  local b = d1.buttons[1]
+  local function snippet(args, body) return assert(loadstring("local " .. args .. " = ...; " .. body)) end
+  -- toggle, from the handle and from the macro's click target alike
+  local shown = false
+  local ref = { IsShown = function() return shown end, Show = function() shown = true end, Hide = function() shown = false end }
+  local toggle = snippet("self", h1._attr._onclick); local me = { GetFrameRef = function(_, n) assert(n == "drawer"); return ref end }
+  toggle(me); assert(shown); toggle(me); assert(not shown)
+  assert(SpellDrawerMacro1._attr._onclick == h1._attr._onclick)
+  -- close after a cast: left release only, and only when set to
+  local pre, post = snippet("self, button, down, owner", b._wraps.OnClick.pre), snippet("self, message, button, down, owner", b._wraps.OnClick.post)
+  local function owner(autoclose) local o = { hidden = false }
+    function o:GetAttribute(a) assert(a == "autoclose"); return autoclose end
+    function o:Hide() self.hidden = true end
+    return o end
+  local o = owner(true)
+  assert(select(2, pre(b, "LeftButton", false, o)) == "close" and pre(b, "LeftButton", true, o) == nil and select("#", pre(b, "RightButton", false, o)) == 0)
+  assert(select("#", pre(b, "LeftButton", false, owner(false))) == 0)
+  post(b, "close", "LeftButton", false, o); assert(o.hidden)
+end
 
 -- ===== the window =====
 assert(SpellDrawerWindow == nil); sounds = 0

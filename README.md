@@ -23,7 +23,9 @@ Shift-right-click a button in a drawer to take it out. `/sd help` lists the comm
 
 ## Installation
 
-Download the latest [release](https://github.com/casperstorm/spell-drawer/releases), extract the `SpellDrawer` folder into `World of Warcraft/_forever_/Interface/AddOns`, and restart the game or reload the UI.
+Download `SpellDrawer-<version>-forever.zip` from the latest [release](https://github.com/casperstorm/spell-drawer/releases), extract the `SpellDrawer` folder into `World of Warcraft/_forever_/Interface/AddOns`, and restart the game.
+
+Take that file, not GitHub's **Source code** zip or the green **Code** button: those unpack to a folder named `spell-drawer-…`, which the game does not recognise as the addon.
 
 ## Development
 
