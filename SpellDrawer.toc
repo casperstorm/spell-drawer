@@ -1,0 +1,11 @@
+## Interface: 16001
+## Title: Spell Drawer
+## Notes: A button that opens a drawer of extra spells, items and macros. Floats on its own or sits on an action bar, and can cast its spells one per press. /sd for options.
+## Author: casperstorm
+## Version: @project-version@
+## IconTexture: Interface\Icons\INV_Box_01
+## AddonCompartmentFunc: SpellDrawer_OnAddonCompartmentClick
+## SavedVariablesPerCharacter: SpellDrawerDB
+
+SpellDrawer.lua
+Window.lua

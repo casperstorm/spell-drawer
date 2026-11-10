@@ -1,0 +1,9 @@
+package-as: SpellDrawer
+
+ignore:
+  - .github
+  - README.md
+  - tests
+  - .pkgmeta
+
+enable-nolib-creation: no

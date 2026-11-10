@@ -1,0 +1,8 @@
+<!-- Keys that open or close a drawer, under Keybindings > Spell Drawer. Each one clicks
+     that drawer's handle; the names are set in SpellDrawer.lua. -->
+<Bindings>
+	<Binding name="CLICK SpellDrawerHandle1:LeftButton" category="Spell Drawer"/>
+	<Binding name="CLICK SpellDrawerHandle2:LeftButton" category="Spell Drawer"/>
+	<Binding name="CLICK SpellDrawerHandle3:LeftButton" category="Spell Drawer"/>
+	<Binding name="CLICK SpellDrawerHandle4:LeftButton" category="Spell Drawer"/>
+</Bindings>
