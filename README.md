@@ -2,6 +2,8 @@
 
 A button that opens a drawer of extra spells, so several spells can share one action bar slot. For WoW Forever.
 
+![Spell Drawer](demo.gif)
+
 ## Features
 
 - **Drawers:** Fill a drawer with spells, items and macros. It opens up, down, left or right.
@@ -16,6 +18,8 @@ A button that opens a drawer of extra spells, so several spells can share one ac
 3. Drag the drawer from the options onto an action bar, or leave it floating and Alt-drag it into place.
 
 Shift-right-click a button in a drawer to take it out. `/sd help` lists the commands.
+
+![Spell Drawer options](settings.png)
 
 ## Installation
 
